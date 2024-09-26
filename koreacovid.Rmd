@@ -33,10 +33,22 @@ state of a patient must be died or alive - we adjust that as well
 
 
 ## Graphical results - use ggplot commands to do this  
+```{r}
+dd2 <- kRdata %>% group_by(result,Sex) %>% summarize(count=n()) %>% mutate(prcnt=count/sum(count))
 
 
+# the group_by followed by summarize(count=n())
 
-  
+basicC <- ggplot(dd2,aes(x=result,y=count,fill=Sex))
+basicC + geom_bar(stat="identity",position="dodge")
+
+#Now for percentage plot
+
+basicCC <- ggplot(dd2,aes(x=result,y=prcnt*100,fill=Sex)) 
+basicCC + geom_bar(stat="identity", position = "dodge")
+```
+
+  The most in the "alive" category is the "female" category at 57.5%. The "male" category has about 42.5% in the "alive" category. "male"s category had 62.5% in the "dead" category. There are about 37.5% in the "dead" for "female"s category. The males have a much larger ratio compared to the females. The amount of deaths they carry is 20% less than they are alive. Females seem to survive much more than male.
 
 
 
